@@ -1,26 +1,36 @@
+// Prototype of Final Project
+// 5/17/20
+// Hang Rui; Zhifeng Lu; Amir Alaj
+// Section A
+
 let config = {
     type: Phaser.CANVAS,
-    pixelArt: true,
-    width: 660, 
-    height: 480,
-    scale: {
-        autoCenter: Phaser.Scale.CENTER_BOTH
+    render: {
+        pixelArt: true
     },
+    width: 320, 
+    height: 320,
+    zoom: 2,
     physics: {
         default: "arcade",
         arcade: {
             //debug: true,
         }
     },
-    scene: [Test]
+    scene: [  Menu, Tutorial ],
 };
 
 const game = new Phaser.Game(config);
-
+// define some vars
 const centerX = game.config.width / 2;
 const centerY = game.config.height / 2;
-let keyE;
+let keyE, keyP, keySPACE, keyR;
 let cursors = null;
 let player = null;
 let jumpMan = null;
+let muscleMan = null;
+let athleteMan = null;
+let dollHolder = null;
 let temp = null;
+let door = null;
+let box = null;
