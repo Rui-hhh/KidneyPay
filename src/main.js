@@ -1,5 +1,4 @@
-// Prototype of Final Project
-// 5/17/20
+// Main mechanics done
 // Hang Rui; Zhifeng Lu; Amir Alaj
 // Section A
 
