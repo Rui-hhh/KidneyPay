@@ -291,8 +291,7 @@ class Level4 extends Phaser.Scene {
         }
     }
 
-    // detection function for muscleman to pickup box
-
+    
 
     //plays lever animation, spawns drop bridge below the map
     dropBridge(leverSpawn, groundLayer, bridgeSpawn, player) {
