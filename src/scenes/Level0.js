@@ -17,19 +17,19 @@ class Level0 extends Phaser.Scene {
 
     preload() {
         //load in all image assets
-        this.load.spritesheet('JumpMan', './assets/Jumper-Sheet.png', { frameWidth: 32, frameHeight: 32 });
-        this.load.spritesheet('Doll', './assets/player-sheet.png', { frameWidth: 32, frameHeight: 32 });
+        this.load.spritesheet('JumpMan', './assets/JumperSheet.png', { frameWidth: 32, frameHeight: 32 });
+        this.load.spritesheet('Doll', './assets/playerSheet.png', { frameWidth: 32, frameHeight: 32 });
         this.load.image('tile_set', './assets/tile_set.png');
-        this.load.spritesheet('muscleMan', './assets/Muscle-Sheet.png', { frameWidth: 32, frameHeight: 32 });
-        this.load.spritesheet('athleteMan', './assets/climber-sheet.png', { frameWidth: 32, frameHeight: 32 });
-        this.load.image('moveable_box', './assets/moveable-box.png');
-        this.load.spritesheet('lever', './assets/controller-sheet.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 9});
-        this.load.spritesheet('trap', './assets/trap-sheet.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 5})
+        this.load.spritesheet('muscleMan', './assets/MuscleSheet.png', { frameWidth: 32, frameHeight: 32 });
+        this.load.spritesheet('athleteMan', './assets/climberSheet.png', { frameWidth: 32, frameHeight: 32 });
+        this.load.image('moveable_box', './assets/moveableBox.png');
+        this.load.spritesheet('lever', './assets/controllerSheet.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 9});
+        this.load.spritesheet('trap', './assets/trapSheet.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 5})
         this.load.image('drop-bridge', './assets/bridge.png');
         this.load.image('elevator', './assets/elevator.png');
-        this.load.image('drop_box', './assets/drop_box.png');
+        this.load.image('drop_box', './assets/dropBox.png');
         this.load.image('fragment', './assets/fragment.png');
-        this.load.image('fragment_doll', './assets/fragment_doll.png');
+        this.load.image('fragmentDoll', './assets/fragmentDoll.png');
         this.load.image('gate', './assets/gate.png');
 
         //load all sound assets
@@ -37,14 +37,14 @@ class Level0 extends Phaser.Scene {
         this.load.audio('sfx_jump', './assets/Jump.wav');
         this.load.audio('sfx_jump_higher', './assets/JumpHigher.wav');
         this.load.audio('sfx_NextLevel', './assets/NextLevel.wav');
-        this.load.audio('sfx_pull', './assets/switch-lever.wav');
-        this.load.audio('sfx_destroy', './assets/saw-destroy.wav');
-        this.load.audio('sfx_box_land', './assets/box-fall.wav');
-        this.load.audio('sfx_climb', './assets/rope-climb.wav');
+        this.load.audio('sfx_pull', './assets/switchLever.wav');
+        this.load.audio('sfx_destroy', './assets/sawDestroy.wav');
+        this.load.audio('sfx_box_land', './assets/boxFall.wav');
+        this.load.audio('sfx_climb', './assets/ropeClimb.wav');
         this.load.audio('bgmMusic', './assets/backgroundmusic.wav');
 
         ///load tile map related assets
-        this.load.tilemapTiledJSON('level0Map', './assets/Level-0.json');
+        this.load.tilemapTiledJSON('level0Map', './assets/Level0.json');
         this.load.spritesheet("level0_sheet", './assets/tile_set.png', {
             frameWidth: 32,
             frameHeight: 32
@@ -680,7 +680,7 @@ class Level0 extends Phaser.Scene {
     dollExplode(){
         this.explode.play();
         // trap hit effect
-        let particles = this.add.particles('fragment_doll');
+        let particles = this.add.particles('fragmentDoll');
         let dollEmitter = particles.createEmitter({
             alpha: { start: 1, end: 0 },
             scale: { start: 0.5, end: 0 },
