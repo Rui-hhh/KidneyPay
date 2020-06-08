@@ -1,4 +1,5 @@
-// Main mechanics done
+// Prototype of Final Project
+// 5/17/20
 // Hang Rui; Zhifeng Lu; Amir Alaj
 // Section A
 
@@ -33,3 +34,11 @@ let dollHolder = null;
 let temp = null;
 let door = null;
 let box = null;
+let pickupDecision = false; // use to decide whether there is box around to pickup
+let pickupNum = null; // use to decide which box to pickup
+let bottomHeight = null;
+let playerSpawnX = null;
+let playerSpawnY = null;
+
+// const map = null;
+// const playerSpawn = null;

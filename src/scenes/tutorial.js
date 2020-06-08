@@ -45,6 +45,9 @@ class Tutorial extends Phaser.Scene {
         // tilemap settings
         const map = this.add.tilemap('tutorialMap');
 
+        let bottomHeight = map.heightInPixels;
+        console.log(bottomHeight);
+
         const tileset = map.addTilesetImage('tile_set', 'tutorial_set');
 
         const backgroundLayer = map.createStaticLayer('BG', tileset, 0, 0);
@@ -58,6 +61,11 @@ class Tutorial extends Phaser.Scene {
         player.setCollideWorldBounds(true);
         player.name = 'doll';
         dollHolder = player;
+
+        playerSpawnX = playerSpawn.x;
+        playerSpawnY = playerSpawn.y;
+        console.log(player.y);
+
 
         //add jumpMan sprite
         const jumpManSpawn = map.findObject("spawns", obj => obj.name == "jump-man-spawn");
@@ -146,8 +154,11 @@ class Tutorial extends Phaser.Scene {
         this.physics.add.collider(jumpMan, this.groundLayer);
         this.physics.add.collider(muscleMan, this.groundLayer);
         this.physics.add.collider(athleteMan, this.groundLayer)
-        this.physics.add.collider(this.box1, this.groundLayer);
-        this.physics.add.collider(this.box2, this.groundLayer);
+        // when the box is on the ground, it is immovable
+        this.physics.add.collider(this.box1, this.groundLayer, 
+            ()=>{this.box1.body.setDragX(200); this.box1.body.setImmovable(true); } );
+        this.physics.add.collider(this.box2, this.groundLayer, 
+            ()=>{this.box2.body.setDragX(200); this.box2.body.setImmovable(true); } );
         this.physics.add.collider(this.lever1, this.groundLayer);
         this.physics.add.collider(this.lever2, this.groundLayer);
         this.physics.add.collider(this.lever3, this.groundLayer);
@@ -182,6 +193,15 @@ class Tutorial extends Phaser.Scene {
         this.elevator.update();
         this.cameras.main.startFollow(player, true, 0.25, 0.25);
 
+        
+        // death collision
+        if(player.y > 1220){
+            console.log("death");
+            player.x = playerSpawnX; 
+            player.y = playerSpawnY;
+            player.anims.play('buzz', true);
+        }
+
         // Setting of movement logic based on which sprite the player is using
         if(cursors.left.isDown) {
             if (player.name == 'jumpman') {
@@ -190,11 +210,13 @@ class Tutorial extends Phaser.Scene {
                 player.body.setAccelerationX((-this.ACCELERATION) - 50);
             } else {
                 player.body.setAccelerationX(-this.ACCELERATION);
-                if (this.pickedUp1 == true) {
-                    this.box1.body.setAccelerationX(-this.ACCELERATION);
-                } else if (this.pickedUp2 == true) {
-                    this.box2.body.setAccelerationX(-this.ACCELERATION);
-                }
+                // if (this.pickedUp1 == true) {
+                //     //this.box1.body.setAccelerationX(-this.ACCELERATION);
+                //     this.box1.x = player.x;
+                //     this.box1.y = player.y - 32;
+                // } else if (this.pickedUp2 == true) {
+                //     this.box2.body.setAccelerationX(-this.ACCELERATION);
+                // }
             }    
         } else if (cursors.right.isDown) {
             if (player.name == 'jumpman') {
@@ -203,13 +225,16 @@ class Tutorial extends Phaser.Scene {
                 player.body.setAccelerationX(this.ACCELERATION + 50);
             } else {
                 player.body.setAccelerationX(this.ACCELERATION);
-                if (this.pickedUp1 == true) {
-                    this.box1.body.setAccelerationX(this.ACCELERATION);
-                }  else if (this.pickedUp2 == true) {
-                    this.box2.body.setAccelerationX(this.ACCELERATION);
-                }
+                // let box synchronous with player
+                // if (this.pickedUp1 == true) {
+                //     //this.box1.body.setAccelerationX(this.ACCELERATION);
+                //     this.box1.x = player.x;
+                //     this.box1.y = player.y - 32;
+                // }  else if (this.pickedUp2 == true) {
+                //     this.box2.body.setAccelerationX(this.ACCELERATION);
+                // }
             }
-        } else {
+        } else { // when pressing up
             player.body.setAccelerationX(0);
             if (player.name == 'jumpman') {
                 player.body.setDragX(this.DRAG + 250);
@@ -218,13 +243,14 @@ class Tutorial extends Phaser.Scene {
             } else {
                 player.body.setDragX(this.DRAG);
             }
-            if (this.pickedUp1 == true) {
-                this.box1.body.setAccelerationX(0);
-                this.box1.body.setDragX(this.DRAG);
-            } else if (this.pickedUp2 ==  true) {
-                this.box2.body.setAccelerationX(0);
-                this.box2.body.setDragX(this.DRAG);
-            }
+            // if (this.pickedUp1 == true) {
+            //     //this.box1.body.setAccelerationX(0);
+            //     //this.box1.body.setDragX(this.DRAG);
+            //     this.box1.y = player.y - 32;
+            // } else if (this.pickedUp2 ==  true) {
+            //     this.box2.body.setAccelerationX(0);
+            //     this.box2.body.setDragX(this.DRAG);
+            // }
         }
 
         //jumping when on top of tile map
@@ -239,11 +265,11 @@ class Tutorial extends Phaser.Scene {
                 this.sound.play('sfx_jump');
                 player.body.setVelocityY(this.JUMP_VELOCITY);
             }
-            if (this.pickedUp1 == true) {
-                this.box1.body.setVelocityY(this.JUMP_VELOCITY);
-            } else if (this.pickedUp2 == true) {
-                this.box2.body.setVelocityY(this.JUMP_VELOCITY);
-            }
+            // if (this.pickedUp1 == true) {
+            //     this.box1.body.setVelocityY(this.JUMP_VELOCITY);
+            // } else if (this.pickedUp2 == true) {
+            //     this.box2.body.setVelocityY(this.JUMP_VELOCITY);
+            // }
         } else if (this.ropeGrabbed == true) {
             //if the rope is grabbed it is held
            if (cursors.up.isDown) {
@@ -266,11 +292,11 @@ class Tutorial extends Phaser.Scene {
                 player.body.setVelocityY(this.JUMP_VELOCITY);
                 this.sound.play('sfx_jump');
             }
-            if (this.pickedUp1 == true) {
-                this.box1.body.setVelocityY(this.JUMP_VELOCITY);
-            } else if (this.pickedUp2 == true) {
-                this.box2.body.setVelocityY(this.JUMP_VELOCITY);
-            }
+            // if (this.pickedUp1 == true) {
+            //     this.box1.body.setVelocityY(this.JUMP_VELOCITY);
+            // } else if (this.pickedUp2 == true) {
+            //     this.box2.body.setVelocityY(this.JUMP_VELOCITY);
+            // }
         } else if (this.ropeGrabbed == true) {
             //if the rope is grabbed it is held
             if (cursors.up.isDown) {
@@ -337,28 +363,82 @@ class Tutorial extends Phaser.Scene {
             }
         }
 
+        
         //If the player is muscle man, colliding with a boxm and P is pushed pickedUp
         //will become true for specific box and movement logic will activate in the
         //movement logic area
         if(player.name == "muscleMan") {
-
-            this.physics.world.collide(player, this.box1, () => {
+            // decide if muscleman is around box and have touched once
+            this.whetherPickup();
+  
+            if(pickupDecision && pickupNum == 1){
+                // console.log(this.box1.body.x);
+                // console.log(player.body.x);
+                // console.log(this.box1.body.x-player.body.x);
+                //console.log("touching1");
                 if (this.pickedUp1 == false && Phaser.Input.Keyboard.JustDown(keyP)) {
                     this.pickedUp1 = true;
-                }
-                if (this.pickedUp1 == true && Phaser.Input.Keyboard.JustDown(keyP)) {
-                    this.pickedUp1 = false;
-                }
+                    this.box1.body.setImmovable(false);
+                    this.box1.body.setAllowGravity(false);
+                    this.box1.x = player.x;
+                    this.box1.y = player.y - 32;
 
-            });  
-            this.physics.world.collide(player, this.box2, () => {
+                }
+                // release the box1
+                if (this.pickedUp1 == true && Phaser.Input.Keyboard.JustDown(keyP)) {
+                    console.log("release box1");        
+                    this.pickedUp1 = false;
+                    this.box1.body.setAllowGravity(true);
+                    this.box1.body.setVelocityX(130);
+                    this.box1.body.setVelocityY(-400);
+                }
+            }
+
+            if(pickupDecision && pickupNum == 2){
+                //console.log("touching2");
                 if (this.pickedUp2 == false && Phaser.Input.Keyboard.JustDown(keyP)) {
                     this.pickedUp2 = true;
+                    this.box2.body.setImmovable(false);
+                    this.box2.body.setAllowGravity(false);
+                    this.box2.x = player.x;
+                    this.box2.y = player.y - 32;
                 }
+                //release the box2
                 if (this.pickedUp2 == true && Phaser.Input.Keyboard.JustDown(keyP)) {
                     this.pickedUp2 = false;
+                    this.box2.body.setAllowGravity(true);
+                    this.box2.body.setVelocityX(130);
+                    this.box2.body.setVelocityY(-400);
                 }
-            });
+            }
+
+            // when picked up, update the box position so that it keeps over muscleman's head
+            if(this.pickedUp1){
+                this.box1.x = player.x;
+                this.box1.y = player.y - 32;
+            }
+            if(this.pickedUp2){
+                this.box2.x = player.x;
+                this.box2.y = player.y - 32;
+            }
+            
+            // this.physics.world.collide(player, this.box1, () => {
+            //     if (this.pickedUp1 == false && Phaser.Input.Keyboard.JustDown(keyP)) {
+            //         this.pickedUp1 = true;
+            //     }
+            //     if (this.pickedUp1 == true && Phaser.Input.Keyboard.JustDown(keyP)) {
+            //         this.pickedUp1 = false;
+            //     }
+
+            // });  
+            // this.physics.world.collide(player, this.box2, () => {
+            //     if (this.pickedUp2 == false && Phaser.Input.Keyboard.JustDown(keyP)) {
+            //         this.pickedUp2 = true;
+            //     }
+            //     if (this.pickedUp2 == true && Phaser.Input.Keyboard.JustDown(keyP)) {
+            //         this.pickedUp2 = false;
+            //     }
+            // });
         }
 
         //If the player is athlete man and is over a rope gravity will become 0
@@ -371,6 +451,44 @@ class Tutorial extends Phaser.Scene {
             this.ropeGrabbed = false;
             this.physics.world.gravity.y = 2000;   
         }
+        
+    }
+
+    // detection function for muscleman to pickup box
+    whetherPickup(){
+        if(Math.abs(this.box1.x - player.x) <= 33){
+            //console.log("body1inrange");
+            pickupDecision = true;
+            pickupNum = 1;
+        }
+        if(this.box2.body.touching.left | this.box2.body.touching.right | this.box2.body.touching.up){
+            //console.log("body2inrange");
+            pickupDecision = true;
+            pickupNum = 2;
+            //console.log(pickupNum);
+        }
+        //console.log(pickupNum);
+        // decide whether player leave away boxs
+        if(pickupDecision && pickupNum == 1){
+            
+            if(this.box1.x - player.x > 33 | player.x - this.box1.x > 33){
+                //console.log("seperate1");
+                //console.log(pickupNum);
+                pickupDecision = false;
+                pickupNum = 0;
+                
+            }
+        }
+        if(pickupDecision && pickupNum == 2){ 
+           
+                if(this.box2.x - player.x > 33 | player.x - this.box2.x > 33){
+                    //console.log("seperate2");
+                    pickupDecision = false;
+                    pickupNum = 0;
+                }
+            
+        }
+        
         
     }
 
