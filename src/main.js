@@ -24,7 +24,7 @@ const game = new Phaser.Game(config);
 // define some vars
 const centerX = game.config.width / 2;
 const centerY = game.config.height / 2;
-let keyE, keyP, keySPACE, keyR;
+let keyE, keyP, keySPACE, keyR, keyK, keyJ; 
 let cursors = null;
 let player = null;
 let jumpMan = null;

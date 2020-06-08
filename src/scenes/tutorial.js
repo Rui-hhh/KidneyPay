@@ -230,11 +230,16 @@ class Tutorial extends Phaser.Scene {
 
         this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
 
+        //this.cameras.main.setRoundPixels(false);
+
         cursors = this.input.keyboard.createCursorKeys();
         keyE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
         keyP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P);
         keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+        //keyK: throw box to the left; keyJ: throw box to the right
+        keyK = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.K);
+        keyJ = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.J);
 
         //start animation for  every trap in array
         var i;
@@ -279,7 +284,8 @@ class Tutorial extends Phaser.Scene {
     update() {
         //this.trap[0].anims.play('buzz', true);
         this.elevator.update();
-        this.cameras.main.startFollow(player, true, 0.25, 0.25);
+        this.cameras.main.startFollow(player, true, 1, 1);
+        this.cameras.main.setRoundPixels(true);
 
         // death collision
         if(player.y > 1220){
@@ -482,9 +488,7 @@ class Tutorial extends Phaser.Scene {
             }
         }
 
-        //If the player is muscle man, colliding with a boxm and P is pushed pickedUp
-        //will become true for specific box and movement logic will activate in the
-        //movement logic area
+        //If the player is muscle man, P can pickedUp box when around
         if(player.name == "muscleMan") {
 
         this.whetherPickup();
@@ -496,20 +500,26 @@ class Tutorial extends Phaser.Scene {
                     this.box1.body.setAllowGravity(false);
                     this.box1.x = player.x;
                     this.box1.y = player.y - 32;
-
                 }
-                // release the box1
-                if (this.pickedUp1 == true && Phaser.Input.Keyboard.JustDown(keyP)) {
-                    console.log("release box1");        
+                // release the box1: throw right
+                if (this.pickedUp1 == true && Phaser.Input.Keyboard.JustDown(keyK)) {
+                    //console.log("release box1");        
                     this.pickedUp1 = false;
                     this.box1.body.setAllowGravity(true);
                     this.box1.body.setVelocityX(130);
                     this.box1.body.setVelocityY(-400);
                 }
+                // release the box1: throw left
+                if (this.pickedUp1 == true && Phaser.Input.Keyboard.JustDown(keyJ)) {
+                    //console.log("release box1");        
+                    this.pickedUp1 = false;
+                    this.box1.body.setAllowGravity(true);
+                    this.box1.body.setVelocityX(-130);
+                    this.box1.body.setVelocityY(-400);
+                }
             }
 
             if(pickupDecision && pickupNum == 2){
-                //console.log("touching2");
                 if (this.pickedUp2 == false && Phaser.Input.Keyboard.JustDown(keyP)) {
                     this.pickedUp2 = true;
                     this.box2.body.setImmovable(false);
@@ -517,11 +527,18 @@ class Tutorial extends Phaser.Scene {
                     this.box2.x = player.x;
                     this.box2.y = player.y - 32;
                 }
-                //release the box2
-                if (this.pickedUp2 == true && Phaser.Input.Keyboard.JustDown(keyP)) {
+                //release the box2: throw right
+                if (this.pickedUp2 == true && Phaser.Input.Keyboard.JustDown(keyK)) {
                     this.pickedUp2 = false;
                     this.box2.body.setAllowGravity(true);
                     this.box2.body.setVelocityX(130);
+                    this.box2.body.setVelocityY(-400);
+                }
+                //release the box2: throw left
+                if (this.pickedUp2 == true && Phaser.Input.Keyboard.JustDown(keyJ)) {
+                    this.pickedUp2 = false;
+                    this.box2.body.setAllowGravity(true);
+                    this.box2.body.setVelocityX(-130);
                     this.box2.body.setVelocityY(-400);
                 }
             }
@@ -551,12 +568,12 @@ class Tutorial extends Phaser.Scene {
 
     // detection function for muscleman to pickup box
     whetherPickup(){
-            if(Math.abs(this.box1.x - player.x) <= 33){
+            if(Math.abs(this.box1.x - player.x) <= 33 && this.pickedUp2 == false){
                 //console.log("body1inrange");
                 pickupDecision = true;
                 pickupNum = 1;
             }
-            if(this.box2.body.touching.left | this.box2.body.touching.right | this.box2.body.touching.up){
+            else if(Math.abs(this.box2.x - player.x) <= 33 && this.pickedUp1 == false){
                 //console.log("body2inrange");
                 pickupDecision = true;
                 pickupNum = 2;
