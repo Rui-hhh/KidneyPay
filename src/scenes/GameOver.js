@@ -1,8 +1,7 @@
-class Menu extends Phaser.Scene {
+class GameOver extends Phaser.Scene {
     constructor() {
-        super("menuScene");
+        super('GameOver');
     }
-
     preload(){
         this.load.image('menuBG', './assets/menuBG.png');
         //loading font asset
@@ -32,23 +31,16 @@ class Menu extends Phaser.Scene {
         //adding menu text
         let textSpacer = 20;
 
-        this.add.text(centerX, centerY - 2*textSpacer, "Use the (SPACEBAR) ", 10).setOrigin(0.5);
-        this.add.text(centerX, centerY - textSpacer, "to begin the game",10).setOrigin(0.5);
-        this.add.text(centerX, centerY + textSpacer, "Press (M) to see the instruction ", 10).setOrigin(0.5);
-
+        this.add.text(centerX, centerY - 2*textSpacer, "Thankyou for playing", 10).setOrigin(0.5);
+        this.add.text(centerX, centerY , "Use the (SPACEBAR) ", 10).setOrigin(0.5);
+        this.add.text(centerX, centerY + textSpacer, "to return to the menu",10).setOrigin(0.5);
 
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-        keyM = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.M);
-        //keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
     }
-
     update() {
-         if (Phaser.Input.Keyboard.JustDown(keyM)) {
-             this.scene.start('ruleScene');
-         }
 
-        if (Phaser.Input.Keyboard.JustDown(keySPACE)) {
-            this.scene.start('Scene0');
-        }
-    }
+       if (Phaser.Input.Keyboard.JustDown(keySPACE)) {
+           this.scene.start('menuScene');
+       }
+   }
 }

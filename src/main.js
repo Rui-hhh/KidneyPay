@@ -1,5 +1,5 @@
-// Prototype of Final Project
-// 5/17/20
+// Final Project-Kidney Pay
+// 06/07/20
 // Hang Rui; Zhifeng Lu; Amir Alaj
 // Section A
 
@@ -10,6 +10,9 @@ let config = {
     },
     width: 320, 
     height: 320,
+    scale:{
+        autoCenter: Phaser.Scale.CENTER_BOTH
+    },
     zoom: 2,
     physics: {
         default: "arcade",
@@ -17,14 +20,14 @@ let config = {
             //debug: true,
         }
     },
-    scene: [  Menu, Tutorial ],
+    scene: [  Menu, rule, Level0, Level1, Level2, Level3, Level4, GameOver ],
 };
 
 const game = new Phaser.Game(config);
 // define some vars
 const centerX = game.config.width / 2;
 const centerY = game.config.height / 2;
-let keyE, keyP, keySPACE, keyR, keyK, keyJ; 
+let keyE, keyP, keySPACE, keyR, keyK, keyJ, keyQ, keyM; 
 let cursors = null;
 let player = null;
 let jumpMan = null;
@@ -32,7 +35,6 @@ let muscleMan = null;
 let athleteMan = null;
 let dollHolder = null;
 let temp = null;
-let door = null;
 let box = null;
 let pickupDecision = false; // use to decide whether there is box around to pickup
 let pickupNum = null; // use to decide which box to pickup
