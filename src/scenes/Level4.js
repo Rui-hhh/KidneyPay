@@ -14,6 +14,7 @@ class Level4 extends Phaser.Scene {
         this.sawsDestroyed = false;
         this.boxDropped = false;
     }
+    
 
     preload() {
         //load in all image assets
@@ -29,8 +30,9 @@ class Level4 extends Phaser.Scene {
         this.load.image('elevator', './assets/elevator.png');
         this.load.image('drop_box', './assets/dropBox.png');
         this.load.image('fragment', './assets/fragment.png');
-        this.load.image('fragmentDoll', './assets/fragmentDoll.png');
+        this.load.image('fragment_doll', './assets/fragmentDoll.png');
         this.load.image('gate', './assets/gate.png');
+        this.load.image('kidney', './assets/kidney.png');
 
         //load all sound assets
         this.load.audio('sfx_possess', './assets/possess.wav');
@@ -50,7 +52,6 @@ class Level4 extends Phaser.Scene {
             frameHeight: 32
         });
     }
-
 
     create() {
         // tilemap settings

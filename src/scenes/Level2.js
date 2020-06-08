@@ -29,7 +29,7 @@ class Level2 extends Phaser.Scene {
         this.load.image('elevator', './assets/elevator.png');
         this.load.image('drop_box', './assets/dropBox.png');
         this.load.image('fragment', './assets/fragment.png');
-        this.load.image('fragmentDoll', './assets/fragmentDoll.png');
+        this.load.image('fragment_doll', './assets/fragmentDoll.png');
         this.load.image('gate', './assets/gate.png');
 
         //load all sound assets
