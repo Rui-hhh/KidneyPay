@@ -133,7 +133,6 @@ class Level2 extends Phaser.Scene {
         const elevatorSpawn = map.findObject('spawns', obj => obj.name == 'elevator-spawn');
         this.elevator = new Elevator(this, elevatorSpawn.x, elevatorSpawn.y, 'elevator', 0, false);
 
-        //create all rope options in one sprite group
     
 
         //create all trap objects in a srpite array
@@ -246,6 +245,7 @@ class Level2 extends Phaser.Scene {
     update() {
         if (Phaser.Input.Keyboard.JustDown(keyQ)){
             this.sawsDestroyed = false;
+            this.boxDropped = false;
             this.music.stop();
             this.scene.start('Scene2');
         }
@@ -260,8 +260,6 @@ class Level2 extends Phaser.Scene {
             player.y = playerSpawnY-32;
         }
         if(this.physics.world.overlap(player, this.trap)){
-            // player.x = playerSpawnX; 
-            // player.y = playerSpawnY;
             this.dollExplode();
         }
 
@@ -282,11 +280,6 @@ class Level2 extends Phaser.Scene {
                 } else if (player.name == 'muscleMan') {
                     player.anims.play('muscle-run', true);
                 }
-                //if (this.pickedUp1 == true) {
-                //    this.box1.body.setAccelerationX(-this.ACCELERATION);
-                //} else if (this.pickedUp2 == true) {
-                //    this.box2.body.setAccelerationX(-this.ACCELERATION);
-                //}
             }    
         } else if (cursors.right.isDown) {
             if (player.name == 'jumpman') {
@@ -304,11 +297,7 @@ class Level2 extends Phaser.Scene {
                 } else if (player.name == 'muscleMan') {
                     player.anims.play('muscle-run', true);
                 }
-                //if (this.pickedUp1 == true) {
-                //    this.box1.body.setAccelerationX(this.ACCELERATION);
-                //}  else if (this.pickedUp2 == true) {
-                //   this.box2.body.setAccelerationX(this.ACCELERATION);
-                //}
+               
             }
         } else {
             player.body.setAccelerationX(0);
@@ -326,13 +315,7 @@ class Level2 extends Phaser.Scene {
                     player.anims.play('muscle-run', false);
                 }            
             }
-            //if (this.pickedUp1 == true) {
-            //    this.box1.body.setAccelerationX(0);
-            //    this.box1.body.setDragX(this.DRAG);
-            //} else if (this.pickedUp2 ==  true) {
-            //    this.box2.body.setAccelerationX(0);
-            //    this.box2.body.setDragX(this.DRAG);
-            //}
+           
         }
         if (Phaser.Input.Keyboard.JustDown(keySPACE)) {
             jumpMan.anims.play('jumper-jump', true);
@@ -351,11 +334,7 @@ class Level2 extends Phaser.Scene {
                 this.jump.play();
                 player.body.setVelocityY(this.JUMP_VELOCITY);
             }
-            //if (this.pickedUp1 == true) {
-            //    this.box1.body.setVelocityY(this.JUMP_VELOCITY);
-            //} else if (this.pickedUp2 == true) {
-            //    this.box2.body.setVelocityY(this.JUMP_VELOCITY);
-            //}
+            
         } else if (this.ropeGrabbed == true) {
             //if the rope is grabbed it is held
            if (cursors.up.isDown) {
@@ -381,11 +360,7 @@ class Level2 extends Phaser.Scene {
                 player.body.setVelocityY(this.JUMP_VELOCITY);
                 this.jump.play();
             }
-            //if (this.pickedUp1 == true) {
-            //   this.box1.body.setVelocityY(this.JUMP_VELOCITY);
-            //} else if (this.pickedUp2 == true) {
-            //   this.box2.body.setVelocityY(this.JUMP_VELOCITY);
-            //}
+            
         } else if (this.ropeGrabbed == true) {
             //if the rope is grabbed it is held
             if (cursors.up.isDown) {
@@ -553,15 +528,13 @@ class Level2 extends Phaser.Scene {
             //console.log("body2inrange");
             pickupDecision = true;
             pickupNum = 2;
-            //console.log(pickupNum);
         }
-        //console.log(pickupNum);
+        
         // decide whether player leave away boxs
         if(pickupDecision && pickupNum == 1){
             
             if(this.box1.x - player.x > 33 | player.x - this.box1.x > 33){
-                //console.log("seperate1");
-                //console.log(pickupNum);
+               
                 pickupDecision = false;
                 pickupNum = 0;
                 

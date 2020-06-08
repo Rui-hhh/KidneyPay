@@ -201,6 +201,7 @@ class Level1 extends Phaser.Scene {
     update() {
         if (Phaser.Input.Keyboard.JustDown(keyQ)){
             this.sawsDestroyed = false;
+            this.boxDropped = false;
             this.music.stop();
             this.scene.start('Scene1');
         }
@@ -349,10 +350,6 @@ class Level1 extends Phaser.Scene {
                 dollHolder.setAccelerationX(0);
             }
         }
-
-        //If the player is muscle man, colliding with a boxm and P is pushed pickedUp
-        //will become true for specific box and movement logic will activate in the
-        //movement logic area
 
 
         //If the player is athlete man and is over a rope gravity will become 0

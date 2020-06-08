@@ -288,6 +288,7 @@ class Level0 extends Phaser.Scene {
     update() {
         if (Phaser.Input.Keyboard.JustDown(keyQ)){
             this.sawsDestroyed = false;
+            this.boxDropped = false;
             this.music.stop();
             this.scene.start('Scene0');
         }
