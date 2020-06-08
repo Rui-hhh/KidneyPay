@@ -39,6 +39,3 @@ let pickupNum = null; // use to decide which box to pickup
 let bottomHeight = null;
 let playerSpawnX = null;
 let playerSpawnY = null;
-
-// const map = null;
-// const playerSpawn = null;
