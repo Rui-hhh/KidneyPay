@@ -103,78 +103,19 @@ class Level1 extends Phaser.Scene {
             //repeat: -1
         })
 
-        //add muscle man sprite
-        //const muscleManSpawn = map.findObject("spawns", obj => obj.name == "muscle-man-spawn");
-        //muscleMan = this.physics.add.sprite(muscleManSpawn.x, muscleManSpawn.y, 'muscleMan');
-        //muscleMan.body.setMaxVelocity(this.MAX_X_VEL, this.MAX_Y_VEL);
-        //muscleMan.setCollideWorldBounds(true);
-        //muscleMan.name = 'muscleMan';
-        //this.anims.create({
-        //    key: 'muscle-run',
-        //    frames: this.anims.generateFrameNumbers('muscleMan', {start: 0, end : 3, first: 0}),
-        //    frameRate: 30,
-        //    //repeat: -1
-        //})
-
-        //add athletic man sprite
-        //const athleteManSpawn = map.findObject("spawns", obj => obj.name == "athletic-man-spawn");
-       // athleteMan = this.physics.add.sprite(athleteManSpawn.x, athleteManSpawn.y, 'athleteMan');
-       // athleteMan.body.setMaxVelocity(this.MAX_X_VEL + 100, this.MAX_Y_VEL + 100);
-       // athleteMan.setCollideWorldBounds(true);
-       // athleteMan.name = 'athleteMan';
-        //this.anims.create({
-       //     key: 'athlete-run',
-        //    frames: this.anims.generateFrameNumbers('athleteMan', {start: 0, end : 2, first: 0}),
-         //   frameRate: 30,
-            //repeat: -1
-       // })
-       // this.anims.create({
-        //    key: 'athlete-jump',
-        //    frames: this.anims.generateFrameNumbers('athleteMan', {start: 3, end : 4}),
-        //    frameRate: 1,
-            //repeat: -1
-        //})
-
+        
         //add all others spawnable sprites
         this.leverSpawn1 = map.findObject("spawns", obj => obj.name == 'lever1');
         this.lever1 = this.physics.add.sprite(this.leverSpawn1.x, this.leverSpawn1.y, 'lever');
-        //this.leverSpawn2 = map.findObject("spawns", obj => obj.name == 'lever2');
-        //this.lever2 = this.physics.add.sprite(this.leverSpawn2.x, this.leverSpawn2.y, 'lever');
-        //this.leverSpawn3 = map.findObject("spawns", obj => obj.name == 'lever3');
-        //this.lever3 = this.physics.add.sprite(this.leverSpawn3.x, this.leverSpawn3.y, 'lever');
-       //this.leverSpawn4 = map.findObject("spawns", obj => obj.name == 'lever4');
-        //this.lever4 = this.physics.add.sprite(this.leverSpawn4.x, this.leverSpawn4.y, 'lever');
+    
         this.bridgeSpawn = map.findObject("spawns", obj => obj.name == 'bridge-spawn');
-        //this.dropBoxSpawn = map.findObject('spawns', obj => obj.name == 'drop-box-spawn');
+        
         this.doorSpawn = map.findObject('spawns', obj => obj.name == 'door_spawn');
 
         this.door = this.physics.add.sprite(this.doorSpawn.x, this.doorSpawn.y, 'gate');
         this.door.body.setAllowGravity(false);
 
-        //const box1Spawn = map.findObject("moveables", obj => obj.name == "moveable-box1");
-        //this.box1 = this.physics.add.sprite(box1Spawn.x, box1Spawn.y, 'moveable_box');
-        //this.box1.body.setMaxVelocity(this.MAX_X_VEL, this.MAX_Y_VEL);
-        //this.box1.body.setImmovable();
-        //this.box1.setCollideWorldBounds(true);
-
-        //const box2Spawn = map.findObject("moveable", obj => obj.name == "moveable-box2");
-        //this.box2 = this.physics.add.sprite(box2Spawn.x, box2Spawn.y, 'moveable_box');
-        //this.box2.body.setMaxVelocity(this.MAX_X_VEL, this.MAX_Y_VEL);
-        //this.box2.body.setImmovable();
-        //this.box2.setCollideWorldBounds(true);
-
-        //elevator specifications in prefab
-        //const elevatorSpawn = map.findObject('spawns', obj => obj.name == 'elevator-spawn');
-        //this.elevator = new Elevator(this, elevatorSpawn.x, elevatorSpawn.y, 'elevator', 0, false);
-
-        //create all rope options in one sprite group
-        //this.rope = map.createFromObjects('grapple', 'rope-spawn', {
-         //   key: 'tutorial_sheet',
-        //    frame: 46
-        //}, this);
-        //this.physics.world.enable(this.rope, Phaser.Physics.Arcade.STATIC_BODY);
-        //this.ropeGroup = this.add.group(this.rope);
-
+        
         //create all trap objects in a srpite array
         this.trap = map.createFromObjects('spawns', 'buzz-saw-spawn', {
             key: 'trap',
@@ -205,33 +146,8 @@ class Level1 extends Phaser.Scene {
         //set all default colliders
         this.physics.add.collider(player, this.groundLayer);
         this.physics.add.collider(jumpMan, this.groundLayer);
-        //this.physics.add.collider(muscleMan, this.groundLayer);
-        //this.physics.add.collider(athleteMan, this.groundLayer)
-            // when the box is on the ground, it is immovable
-        //    this.physics.add.collider(this.box1, this.groundLayer, 
-         //       ()=>{this.box1.body.setDragX(200); this.box1.body.setImmovable(true); } );
-         //   this.physics.add.collider(this.box2, this.groundLayer, 
-         //       ()=>{this.box2.body.setDragX(200); this.box2.body.setImmovable(true); } );
-       // this.physics.add.collider(this.box1, this.groundLayer);
-       // this.physics.add.collider(this.box2, this.groundLayer);
         this.physics.add.collider(this.lever1, this.groundLayer);
-        //this.physics.add.collider(this.lever2, this.groundLayer);
-       // this.physics.add.collider(this.lever3, this.groundLayer);
-       // this.physics.add.collider(this.lever4, this.groundLayer);
-        //this.physics.add.collider(this.elevator, this.groundLayer);
-       // this.physics.add.collider(player, this.box1);
-       // this.physics.add.collider(player, this.box2);
-       // this.physics.add.collider(muscleMan, this.box1);
-       // this.physics.add.collider(muscleMan, this.box2);
-        //this.physics.add.collider(athleteMan, this.box1);
-        //this.physics.add.collider(athleteMan, this.box2);
-        //this.physics.add.collider(jumpMan, this.box1);
-        //this.physics.add.collider(jumpMan, this.box2);
-        //this.physics.add.collider(this.box1, this.box2);
-       // this.physics.add.collider(player, this.elevator);
-        //this.physics.add.collider(muscleMan, this.elevator);
-       // this.physics.add.collider(athleteMan, this.elevator);
-       // this.physics.add.collider(jumpMan, this.elevator);
+       
 
         this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
 
@@ -284,11 +200,11 @@ class Level1 extends Phaser.Scene {
 
     update() {
         if (Phaser.Input.Keyboard.JustDown(keyQ)){
+            this.sawsDestroyed = false;
             this.music.stop();
             this.scene.start('Scene1');
         }
-        //this.trap[0].anims.play('buzz', true);
-    //    this.elevator.update();
+       
         this.cameras.main.startFollow(player, true, 1, 1);
 
         // death collision
@@ -298,8 +214,6 @@ class Level1 extends Phaser.Scene {
             player.y = playerSpawnY-32;
         }
         if(this.physics.world.overlap(player, this.trap)){
-            // player.x = playerSpawnX; 
-            // player.y = playerSpawnY;
             this.dollExplode();
         }
 
@@ -320,11 +234,6 @@ class Level1 extends Phaser.Scene {
                 } else if (player.name == 'muscleMan') {
                     player.anims.play('muscle-run', true);
                 }
-                //if (this.pickedUp1 == true) {
-                //    this.box1.body.setAccelerationX(-this.ACCELERATION);
-                //} else if (this.pickedUp2 == true) {
-                //    this.box2.body.setAccelerationX(-this.ACCELERATION);
-                //}
             }    
         } else if (cursors.right.isDown) {
             if (player.name == 'jumpman') {
@@ -342,17 +251,12 @@ class Level1 extends Phaser.Scene {
                 } else if (player.name == 'muscleMan') {
                     player.anims.play('muscle-run', true);
                 }
-                //if (this.pickedUp1 == true) {
-                //    this.box1.body.setAccelerationX(this.ACCELERATION);
-                //}  else if (this.pickedUp2 == true) {
-                //   this.box2.body.setAccelerationX(this.ACCELERATION);
-                //}
+                
             }
         } else {
             player.body.setAccelerationX(0);
             if (player.name == 'jumpman') {
                 player.body.setDragX(this.DRAG + 250);
-                //player.anims.play('jumper-run', false);
             } else if (player.name == 'athleteMan') {
                 player.body.setDragX(this.DRAG + 100);
                 player.anims.play('athlete-run', false);
@@ -364,13 +268,7 @@ class Level1 extends Phaser.Scene {
                     player.anims.play('muscle-run', false);
                 }            
             }
-            //if (this.pickedUp1 == true) {
-            //    this.box1.body.setAccelerationX(0);
-            //    this.box1.body.setDragX(this.DRAG);
-            //} else if (this.pickedUp2 ==  true) {
-            //    this.box2.body.setAccelerationX(0);
-            //    this.box2.body.setDragX(this.DRAG);
-            //}
+            
         }
         if (Phaser.Input.Keyboard.JustDown(keySPACE)) {
             jumpMan.anims.play('jumper-jump', true);
@@ -381,28 +279,12 @@ class Level1 extends Phaser.Scene {
                 this.highJump.play()
                 player.body.setVelocityY(this.JUMP_VELOCITY - 250);
                 player.anims.play('jumper-jump', true);
-            //} else if (player.name == 'athleteMan') {
-            //    this.jump.play();
-            //    player.body.setVelocityY(this.JUMP_VELOCITY - 100);
-            //    player.anims.play('athlete-jump');
+            
             } else {
                 this.jump.play();
                 player.body.setVelocityY(this.JUMP_VELOCITY);
             }
-            //if (this.pickedUp1 == true) {
-            //    this.box1.body.setVelocityY(this.JUMP_VELOCITY);
-            //} else if (this.pickedUp2 == true) {
-            //    this.box2.body.setVelocityY(this.JUMP_VELOCITY);
-            //}
-        //} else if (this.ropeGrabbed == true) {
-            //if the rope is grabbed it is held
-        //   if (cursors.up.isDown) {
-        //        player.setVelocityY(-100);
-        //    } else if (cursors.down.isDown) {
-        //        player.setVelocityY(100);
-         //   } else {
-        //        player.setVelocityY(0);
-         //   }
+            
         } 
 
         //jumping when on top of sprites
@@ -411,28 +293,12 @@ class Level1 extends Phaser.Scene {
                 this.highJump.play()
                 player.body.setVelocityY(this.JUMP_VELOCITY - 250);
                 player.anims.play('jumper-jump', true);
-            //} else if (player.name == 'athleteMan') {
-             //   player.body.setVelocityY(this.JUMP_VELOCITY - 100);
-            //    this.jump.play();
-             //   player.anims.play('athlete-jump');
+            
             } else {
                 player.body.setVelocityY(this.JUMP_VELOCITY);
                 this.jump.play();
             }
-            //if (this.pickedUp1 == true) {
-            //   this.box1.body.setVelocityY(this.JUMP_VELOCITY);
-            //} else if (this.pickedUp2 == true) {
-            //   this.box2.body.setVelocityY(this.JUMP_VELOCITY);
-            //}
-        //} else if (this.ropeGrabbed == true) {
-            //if the rope is grabbed it is held
-        //    if (cursors.up.isDown) {
-        //        player.setVelocityY(-100);
-        //     } else if (cursors.down.isDown) {
-        //        player.setVelocityY(100);
-        //     } else {
-        //         player.setVelocityY(0);
-         //    }
+            
          } 
          //movement logic end
 
@@ -440,20 +306,12 @@ class Level1 extends Phaser.Scene {
         if (this.physics.world.overlap(player, this.lever1) && Phaser.Input.Keyboard.JustDown(cursors.down)) {
             this.dropBridge(this.leverSpawn1, this.groundLayer,this.bridgeSpawn, player, dollHolder);
         }
-        //if (this.physics.world.overlap(player, this.lever2) && Phaser.Input.Keyboard.JustDown(cursors.down)) {
-        //    this.callElevator();
-        //}
-        //if (this.physics.world.overlap(player, this.lever3) && Phaser.Input.Keyboard.JustDown(cursors.down)) {
-        //   this.dropBox();
-        //}
+       
         if (this.physics.world.overlap(player, this.lever4) && Phaser.Input.Keyboard.JustDown(cursors.down)) {
             this.destroyTraps();
         }
 
-        //when elevator is at the top, it will no longer be active
-        //if (this.elevator.y <= 628) {
-        //    this.elevator.activate = false;
-        //}
+        
         
         if (player.name == 'doll') {
             // logic for switching to specific bodies

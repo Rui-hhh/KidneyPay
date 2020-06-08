@@ -84,9 +84,7 @@ class Level3 extends Phaser.Scene {
             //repeat: -1
         })
 
-        //add jumpMan sprite
-
-        //add muscle man sprite
+       
 
         //add athletic man sprite
         const athleteManSpawn = map.findObject("spawns", obj => obj.name == "athletic-man-spawn");
@@ -228,6 +226,7 @@ class Level3 extends Phaser.Scene {
 
     update() {
         if (Phaser.Input.Keyboard.JustDown(keyQ)){
+            this.sawsDestroyed = false;
             this.music.stop();
             this.scene.start('Scene3');
         }
@@ -242,8 +241,6 @@ class Level3 extends Phaser.Scene {
             player.y = playerSpawnY;
         }
         if(this.physics.world.overlap(player, this.trap)){
-            // player.x = playerSpawnX; 
-            // player.y = playerSpawnY;
             this.dollExplode();
         }
 
@@ -257,11 +254,6 @@ class Level3 extends Phaser.Scene {
                 if (player.name == 'doll') {
                     player.anims.play('doll-run',true);
                 }
-                //if (this.pickedUp1 == true) {
-                //    this.box1.body.setAccelerationX(-this.ACCELERATION);
-                //} else if (this.pickedUp2 == true) {
-                //    this.box2.body.setAccelerationX(-this.ACCELERATION);
-                //}
             }    
         } else if (cursors.right.isDown) {
             if (player.name == 'athleteMan') {
@@ -272,11 +264,7 @@ class Level3 extends Phaser.Scene {
                 if (player.name == 'doll') {
                     player.anims.play('doll-run', true);
                 }
-                //if (this.pickedUp1 == true) {
-                //    this.box1.body.setAccelerationX(this.ACCELERATION);
-                //}  else if (this.pickedUp2 == true) {
-                //   this.box2.body.setAccelerationX(this.ACCELERATION);
-                //}
+                
             }
         } else {
             player.body.setAccelerationX(0);
@@ -289,13 +277,7 @@ class Level3 extends Phaser.Scene {
                     player.anims.play('doll-run', false);
                 }      
             }
-            //if (this.pickedUp1 == true) {
-            //    this.box1.body.setAccelerationX(0);
-            //    this.box1.body.setDragX(this.DRAG);
-            //} else if (this.pickedUp2 ==  true) {
-            //    this.box2.body.setAccelerationX(0);
-            //    this.box2.body.setDragX(this.DRAG);
-            //}
+            
         }
  
         //jumping when on top of tile map
@@ -308,11 +290,7 @@ class Level3 extends Phaser.Scene {
                 this.jump.play();
                 player.body.setVelocityY(this.JUMP_VELOCITY);
             }
-            //if (this.pickedUp1 == true) {
-            //    this.box1.body.setVelocityY(this.JUMP_VELOCITY);
-            //} else if (this.pickedUp2 == true) {
-            //    this.box2.body.setVelocityY(this.JUMP_VELOCITY);
-            //}
+           
         } else if (this.ropeGrabbed == true) {
             //if the rope is grabbed it is held
            if (cursors.up.isDown) {
@@ -334,11 +312,7 @@ class Level3 extends Phaser.Scene {
                 player.body.setVelocityY(this.JUMP_VELOCITY);
                 this.jump.play();
             }
-            //if (this.pickedUp1 == true) {
-            //   this.box1.body.setVelocityY(this.JUMP_VELOCITY);
-            //} else if (this.pickedUp2 == true) {
-            //   this.box2.body.setVelocityY(this.JUMP_VELOCITY);
-            //}
+           
         } else if (this.ropeGrabbed == true) {
             //if the rope is grabbed it is held
             if (cursors.up.isDown) {
@@ -391,9 +365,7 @@ class Level3 extends Phaser.Scene {
             }
         }
 
-        //If the player is muscle man, colliding with a boxm and P is pushed pickedUp
-        //will become true for specific box and movement logic will activate in the
-        //movement logic area
+        
 
 
         //If the player is athlete man and is over a rope gravity will become 0

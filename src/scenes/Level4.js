@@ -84,12 +84,6 @@ class Level4 extends Phaser.Scene {
             //repeat: -1
         })
 
-        //add jumpMan sprite
-
-        //add muscle man sprite
-
-        //add athletic man sprite
-
 
         //add all others spawnable sprites
         this.leverSpawn2 = map.findObject("spawns", obj => obj.name == 'lever2');
@@ -105,12 +99,6 @@ class Level4 extends Phaser.Scene {
         const elevatorSpawn = map.findObject('spawns', obj => obj.name == 'elevator-spawn');
         this.elevator = new Elevator(this, elevatorSpawn.x, elevatorSpawn.y, 'elevator', 0, false);
 
-        //create all rope options in one sprite group
- 
-        //create all trap objects in a srpite array
-
-
-        //initializing buzz saw animation
 
 
         //initializing lever animation
@@ -181,10 +169,11 @@ class Level4 extends Phaser.Scene {
 
     update() {
         if (Phaser.Input.Keyboard.JustDown(keyQ)){
+            this.sawsDestroyed = false;
             this.music.stop();
             this.scene.start('Scene4');
         }
-        //this.trap[0].anims.play('buzz', true);
+       
         this.elevator.update();
         this.cameras.main.startFollow(player, true, 1, 1);
 
@@ -195,8 +184,6 @@ class Level4 extends Phaser.Scene {
             player.y = playerSpawnY;
         }
         if(this.physics.world.overlap(player, this.trap)){
-            // player.x = playerSpawnX; 
-            // player.y = playerSpawnY;
             this.dollExplode();
         }
 
@@ -206,12 +193,6 @@ class Level4 extends Phaser.Scene {
                 player.body.setAccelerationX(-this.ACCELERATION);
                 if (player.name == 'doll') {
                     player.anims.play('doll-run',true);
-                
-                //if (this.pickedUp1 == true) {
-                //    this.box1.body.setAccelerationX(-this.ACCELERATION);
-                //} else if (this.pickedUp2 == true) {
-                //    this.box2.body.setAccelerationX(-this.ACCELERATION);
-                //}
                 }    
         } else if (cursors.right.isDown) {
 
@@ -219,11 +200,6 @@ class Level4 extends Phaser.Scene {
                 if (player.name == 'doll') {
                     player.anims.play('doll-run', true);
                 
-                //if (this.pickedUp1 == true) {
-                //    this.box1.body.setAccelerationX(this.ACCELERATION);
-                //}  else if (this.pickedUp2 == true) {
-                //   this.box2.body.setAccelerationX(this.ACCELERATION);
-                //}
             }
         } else {
             player.body.setAccelerationX(0);
@@ -233,13 +209,6 @@ class Level4 extends Phaser.Scene {
                     player.anims.play('doll-run', false);
                       
                 }
-            //if (this.pickedUp1 == true) {
-            //    this.box1.body.setAccelerationX(0);
-            //    this.box1.body.setDragX(this.DRAG);
-            //} else if (this.pickedUp2 ==  true) {
-            //    this.box2.body.setAccelerationX(0);
-            //    this.box2.body.setDragX(this.DRAG);
-            //}
         }
  
         //jumping when on top of tile map
@@ -247,11 +216,7 @@ class Level4 extends Phaser.Scene {
 
                 this.jump.play();
                 player.body.setVelocityY(this.JUMP_VELOCITY);
-            //if (this.pickedUp1 == true) {
-            //    this.box1.body.setVelocityY(this.JUMP_VELOCITY);
-            //} else if (this.pickedUp2 == true) {
-            //    this.box2.body.setVelocityY(this.JUMP_VELOCITY);
-            //}
+           
         } else if (this.ropeGrabbed == true) {
             //if the rope is grabbed it is held
            if (cursors.up.isDown) {
@@ -269,11 +234,6 @@ class Level4 extends Phaser.Scene {
                 player.body.setVelocityY(this.JUMP_VELOCITY);
                 this.jump.play();
             
-            //if (this.pickedUp1 == true) {
-            //   this.box1.body.setVelocityY(this.JUMP_VELOCITY);
-            //} else if (this.pickedUp2 == true) {
-            //   this.box2.body.setVelocityY(this.JUMP_VELOCITY);
-            //}
         } else if (this.ropeGrabbed == true) {
             //if the rope is grabbed it is held
             if (cursors.up.isDown) {
@@ -310,9 +270,7 @@ class Level4 extends Phaser.Scene {
             }
         }
 
-        //If the player is muscle man, colliding with a boxm and P is pushed pickedUp
-        //will become true for specific box and movement logic will activate in the
-        //movement logic area
+        
 
 
         //If the player is athlete man and is over a rope gravity will become 0
@@ -351,7 +309,7 @@ class Level4 extends Phaser.Scene {
         this.elevator.activate = true;
     }
 
-    //plays lever animation, causes box to be dropped from ceiling so area is reachable
+   
 
 
     // effect when touch the trap
